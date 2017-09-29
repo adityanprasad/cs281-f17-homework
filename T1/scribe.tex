@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{common}
+\usepackage{../pagesetup}
+\usepackage{xcolor}
+\DeclareMathOperator*{\argmin}{arg\,min}
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+
+\newcommand{\v}{\boldsymbol}
+\begin{document}
+
+\lecture{4}{September 13}{Sasha Rush}{Kojin Oshiba, Michael Ge, Aditya Prasad}{Linear Regression}
+
+\subsection{Multivariate Normal (MVN) k, rev: m, a}
+The multivariate normal distribution of a  D-dimensional random vector X is defined as:
+
+$$N(X|\mu,\Sigma) \sim (2\pi)^{-\frac{D}{2}} |\Sigma|^{-\frac{1}{2}}exp\{-\frac{1}{2}(X-\mu)^T\Sigma^{-1} (X-\mu)\}$$
+
+Note: \begin{itemize}
+\item $(2\pi)^{-\frac{D}{2}} |\Sigma|^{-\frac{1}{2}}$ and $-\frac{1}{2}$ are constants so we can ignore in MLE and MAP calculations. 
+\item $(X-\mu)^T\Sigma^{-1} (X-\mu)$ is a quadratic term.
+\end{itemize}
+
+\noindent 
+
+\subsection{Maximum Likelihood of MVN k, rev: m, a} 
+Let $\theta = (\mu, \Sigma)$, where $\Sigma$ can be approximated as a diagonal/low rank matrix. If there are $x_1, \ldots, x_n$ observations, the MLE estimate of $\mu$ is 
+\begin{flalign*}
+\mu^* & = -\Sigma_{n}logN(x_n|\mu,\Sigma) & \\
+	  & = log(constant) - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+      & = - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+\end{flalign*}
+
+Let $L = \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu)$.
+
+\begin{flalign*}
+\frac{dL}{d\mu} & = \Sigma_{n} \Sigma^{-1} (x_n-\mu) = 0 & \\
+\mu^*_{MLE} & = log(constant) - \sum_{n}(x_n-\mu)^T\Sigma^{-1}  & \\
+      & = - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+\end{flalign*}
+
+
+\subsection{Linear-Gaussian Models m}
+Let $x$ be an affine, noisy observation: $x \sim N(m_0, S_0)$. $y|x \sim N(Ax + b, \Sigma_y)$. In other words, $y$ is a transformation of the observation $x$ by $A, b$ with noise specified by $\Sigma_y$.
+
+\begin{align*}
+p(x|y) & \propto p(x) p(y|x) \\
+& = \frac{1}{2} \exp\left((x - m_0)^\top S_0^{-1} (x - m_0) + (y - (Ax + b))^\top \Sigma_y^{-1} (y - (Ax + b))\right) \\
+& = \frac{1}{2} \begin{cases} 
+      \textcolor{red}{x^\top S_0^{-1} x} - 2x^\top S_0^{-1} m_0 + \ldots \\
+      + \textcolor{red}{
+\newcommand{\v}{\boldsymbol}
+% **** IF YOU WANT TO DEFINE ADDITIONAL MACROS FOR YOURSELF, PUT THEM HERE:
+\end{align*}
+\begin{document}
+
+\lecture{4}{September 13}{Sasha Rush}{Kojin Oshiba, Michael Ge, Aditya Prasad}{Linear Regression}
+
+\subsection{Multivariate Normal (MVN) k, rev: m, a}
+The multivariate normal distribution of a  D-dimensional random vector X is defined as:
+
+$$N(X|\mu,\Sigma) \sim (2\pi)^{-\frac{D}{2}} |\Sigma|^{-\frac{1}{2}}exp\{-\frac{1}{2}(X-\mu)^T\Sigma^{-1} (X-\mu)\}$$
+
+Note: \begin{itemize}
+\item $(2\pi)^{-\frac{D}{2}} |\Sigma|^{-\frac{1}{2}}$ and $-\frac{1}{2}$ are constants so we can ignore in MLE and MAP calculations. 
+\item $(X-\mu)^T\Sigma^{-1} (X-\mu)$ is a quadratic term.
+\end{itemize}
+
+\noindent 
+
+\subsection{Maximum Likelihood of MVN k, rev: m, a} 
+Let $\theta = (\mu, \Sigma)$, where $\Sigma$ can be approximated as a diagonal/low rank matrix. If there are $x_1, \ldots, x_n$ observations, the MLE estimate of $\mu$ is 
+\begin{flalign*}
+\mu^* & = -\Sigma_{n}logN(x_n|\mu,\Sigma) & \\
+	  & = log(constant) - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+      & = - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+\end{flalign*}
+
+Let $L = \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu)$.
+
+\begin{flalign*}
+\frac{dL}{d\mu} & = \Sigma_{n} \Sigma^{-1} (x_n-\mu) = 0 & \\
+\mu^*_{MLE} & = \frac{\Sigma_{X_n}}{N} & \\
+      & = - \sum_{n}(x_n-\mu)^T\Sigma^{-1} (x_n-\mu) & \\
+\end{flalign*}
+
+
+\subsection{Linear-Gaussian Models m}
+Let $x$ be an affine, noisy observation: $x \sim N(m_0, S_0)$. $y|x \sim N(Ax + b, \Sigma_y)$. In other words, $y$ is a transformation of the observation $x$ by $A, b$ with noise specified by $\Sigma_y$.
+
+\begin{align*}
+p(x|y) & \propto p(x) p(y|x) \\
+& = \frac{1}{2} \exp\left((x - m_0)^\top S_0^{-1} (x - m_0) + (y - (Ax + b))^\top \Sigma_y^{-1} (y - (Ax + b))\right) \\
+& = \frac{1}{2} \begin{cases} 
+      x^\top S_0^{-1} x - 2x^\top S_0^{-1} m_0 + \ldots \\
+      + x^\top (A^\top \Sigma_y^{-1} A) x - 2x^\top (A^\top \Sigma_y^{-1})y + 2x^\top (A^\top \Sigma_y^{-1}) b + \ldots
+   \end{cases}
+\end{align*}
+\begin{itemize}
+\item hi
+\end{itemize}
+
+\subsection{Linear Regression a, rev: k, m}
+In an undergraduate version of the class, we might define the problem as follows. We are given ``fixed'' inputs, $\vec{x}$
+
+
+\subsection{Bayesian Linear Regression a, rev: k, m}
+
+\subsection{Non Linear Regression a, rev: k, m}
+
+\end{document}
+
+
+
